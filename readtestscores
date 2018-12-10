@@ -1,0 +1,96 @@
+/*
+* Project 7
+* source.cpp
+* Read test scores from a file
+* Created on: December 3rd, 2018
+* Author: Malik Thomas
+*/
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <string>
+
+using namespace std;
+int main()
+{
+
+	const int students = 5;
+	const int tests = 3;
+	double best = 0;
+	int A_grades = 0;
+	int scores[students][tests];
+	ifstream inputFile;
+	string filename;
+
+	cout << "Please enter the filename: ";
+	cin >> filename;
+
+	inputFile.open(filename);
+
+	cout << "Average per student: ";
+
+		for(int row = 0; row < students; row++)
+		{
+			int total = 0;
+
+			for(int col = 0; col < tests; col++)
+			{
+			inputFile >> scores[row][col];
+			total += scores[row][col];
+			}
+
+
+
+			double average_student = total/3.00;
+
+			cout << setprecision(2) << fixed;
+			cout << average_student << " ";
+		}
+cout << endl;
+cout << "Average per test: ";
+
+for(int col = 0; col < tests; col++)
+{
+	int total = 0;
+
+	for(int row = 0; row < students; row++)
+	{
+		inputFile >> scores[row][col];
+		total += scores[row][col];
+	}
+		double test_average = total/5.00;
+
+		cout << setprecision(2) << fixed;
+		cout << test_average << " ";
+}
+
+for(int row = 0; row < students; row++)
+{
+			for(int col = 0; col < tests; col++)
+
+			{
+				if(scores[row][col] > best)
+				{
+
+					best = scores[row][col];
+
+				}
+
+				if(scores[row][col]>= 90)
+				{
+					A_grades++;
+				}
+			}
+}
+
+cout << endl;
+cout << "The best score: " << best << endl;
+cout << "The # of A's: " << A_grades << endl;
+
+
+inputFile.close();
+
+return 0;
+
+}
+
